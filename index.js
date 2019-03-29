@@ -3,14 +3,6 @@ let openDirApi
 let helper
 
 module.exports = {
-	serverPort: 7777,
-	config: {
-		'Only MP4 results': false,
-		'Response timeout': 11000,
-		'Results per page': 25,
-		'Requests open timeout': 10000,
-		'Requests read timeout': 10000
-	},
 	manifest: { 
 		"id": "org.stremio.opendir",
 		"version": "1.0.0",
