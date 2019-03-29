@@ -1,12 +1,8 @@
-const needle = require('needle')
-const helper = require('./helpers')
-const cheerio = require('cheerio')
-
-const google = require('google')
+let needle, helper, cheerio, google
 
 const supportedFiles = ['mkv', 'mp4', 'avi', 'mov', 'mpg', 'wmv']
 
-module.exports = {
+const openDirApi = {
 
 	search: (config, query, cb, end) => {
 
@@ -121,4 +117,12 @@ module.exports = {
 		})
 
 	}
+}
+
+module.exports = mods => {
+	needle = mods.needle
+	helper = require('./helpers')(mods)
+	cheerio = mods.cheerio
+	google = mods.google
+	return openDirApi
 }
