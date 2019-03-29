@@ -3,8 +3,6 @@ const openDirApi = require('./openDirectories.js')
 
 const helper = require('./helpers.js')
 
-const version = require('./package.json').version
-
 const needle = require('needle')
 
 const pUrl = require('url')
@@ -30,7 +28,7 @@ module.exports = {
 	},
 	manifest: { 
 		"id": "org.stremio.opendir",
-		"version": version,
+		"version": "1.0.0",
 
 		"name": "Stremio Open Directories Addon",
 		"description": "Stremio Add-on to get streaming results from Open Directories",
