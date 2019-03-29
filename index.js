@@ -1,21 +1,6 @@
 
-const openDirApi = require('./openDirectories.js')
-
-const helper = require('./helpers.js')
-
-const needle = require('needle')
-
-const pUrl = require('url')
-
-const toStream = (newObj, type) => {
-    return {
-        name: pUrl.parse(newObj.href).host,
-        type: type,
-        url: newObj.href,
-        // presume 480p if the filename has no extra tags
-        title: newObj.extraTag || '480p'
-    }
-}
+let openDirApi
+let helper
 
 module.exports = {
 	serverPort: 7777,
@@ -49,8 +34,14 @@ module.exports = {
 		"catalogs": []
 
 	},
-	handler: (config, args) => {
+	handler: (modules, config, args) => {
 		return new Promise((resolve, reject) => {
+
+			if (!helper)
+				helper = require('./helpers.js')(modules)
+
+			if (!openDirApi)
+				openDirApi = require('./openDirectories.js')(modules)
 
 			if (args.resource != 'stream'){
 				reject(new Error('Resource Unsupported'))
@@ -67,6 +58,16 @@ module.exports = {
 		    let sentResponse = false
 
 		    const respondStreams = () => {
+
+				const toStream = (newObj, type) => {
+				    return {
+				        name: modules.url.parse(newObj.href).host,
+				        type: type,
+				        url: newObj.href,
+				        // presume 480p if the filename has no extra tags
+				        title: newObj.extraTag || '480p'
+				    }
+				}
 
 		        if (sentResponse) return
 		        sentResponse = true
@@ -103,7 +104,7 @@ module.exports = {
 
 		    const imdbId = idParts[0]
 
-		    needle.get('https://v3-cinemeta.strem.io/meta/' + args.type + '/' + imdbId + '.json', (err, resp, body) => {
+		    modules.needle.get('https://v3-cinemeta.strem.io/meta/' + args.type + '/' + imdbId + '.json', (err, resp, body) => {
 
 		        if (body && body.meta && body.meta.name && body.meta.year) {
 
