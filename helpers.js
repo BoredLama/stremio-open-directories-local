@@ -1,11 +1,9 @@
 
-const needle = require('needle')
-const videoNameParser = require('video-name-parser')
-const pUrl = require('url')
-const httpProxy = require('http-proxy')
 const proxies = []
 
 const ticker = {}
+
+let modules = {}
 
 const helper = {
 
@@ -47,7 +45,7 @@ const helper = {
             name = decodeURIComponent(name)
         } catch(e) {}
 
-        const parsedName = videoNameParser(name + '.mp4')
+        const parsedName = modules['video-name-parser'](name + '.mp4')
 
         let extraTag = helper.simpleName(name)
 
@@ -158,7 +156,7 @@ const helper = {
 
         // check if we already made a proxy for it
 
-        const urlParser = pUrl.parse(url)
+        const urlParser = modules.url.parse(url)
 
         if (proxies && proxies.length) {
             const foundProxy = proxies.some((proxyRes, ij) => {
@@ -177,7 +175,7 @@ const helper = {
 
         // create the proxy
 
-        const proxy = httpProxy.createProxyServer()
+        const proxy = modules['http-proxy'].createProxyServer()
 
         proxy.on('error', function(e) {
             if (e && log) {
@@ -275,4 +273,7 @@ const helper = {
 
 }
 
-module.exports = helper
+module.exports = mods => {
+    modules = mods
+    return helper
+}
