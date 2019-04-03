@@ -29,6 +29,8 @@ module.exports = {
 	handler: (args, local) => {
 		const modules = local.modules
 		const config = local.config
+		const proxy = local.proxy
+		const cinemeta = local.cinemeta
 		return new Promise((resolve, reject) => {
 
 			if (!helper)
@@ -75,32 +77,23 @@ module.exports = {
 		            tempResults.forEach(stream => { streams.push(toStream(stream, args.type)) })
 
 		            if (streams.length) {
-		                if (config.onlyMP4) {
-		                    // use proxy to remove CORS
-		                    helper.proxify(streams, (err, proxiedStreams) => {
-		                        if (!err && proxiedStreams && proxiedStreams.length)
-		                            resolve({ streams: proxiedStreams })
-		                        else
-		                            resolve({ streams })
-		                    })
-		                } else {
+		                if (config.onlyMP4)
+		                    resolve({ streams: proxy.addAll(streams) })
+		                else
 		                    resolve({ streams })
-		                }
-		            } else {
+		            } else
 		                resolve({ streams: [] })
-		            }
-		        } else {
+		        } else
 		            resolve({ streams: [] })
-		        }
 		    }
 
 		    const idParts = args.id.split(':')
 
-		    const imdbId = idParts[0]
+		    const imdb = idParts[0]
 
-		    modules.needle.get('https://v3-cinemeta.strem.io/meta/' + args.type + '/' + imdbId + '.json', (err, resp, body) => {
+		    cinemeta.get({ type: args.type, imdb }).then(meta => {
 
-		        if (body && body.meta && body.meta.name && body.meta.year) {
+		        if (meta) {
 
 		            const searchQuery = {
 		                name: body.meta.name,
@@ -131,6 +124,8 @@ module.exports = {
 		        } else {
 		            resolve({ streams: [] })
 		        }
+		    }).catch(err => {
+			reject(err)
 		    })
 		})
 	}
