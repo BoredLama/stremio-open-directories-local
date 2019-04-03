@@ -1,8 +1,6 @@
 const modules = require('./modules').get
 const openDirApi = require('./openDirectories.js')
 
-let openDirApi
-
 module.exports = {
 	manifest: { 
 		"id": "org.stremio.opendir",
