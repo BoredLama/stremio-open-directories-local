@@ -73,7 +73,7 @@ module.exports = {
 		            tempResults.forEach(stream => { streams.push(toStream(stream, args.type)) })
 
 		            if (streams.length) {
-		                if (config['Only MP4 Results']) {
+		                if (config.onlyMP4) {
 		                    // use proxy to remove CORS
 		                    helper.proxify(streams, (err, proxiedStreams) => {
 		                        if (!err && proxiedStreams && proxiedStreams.length)
@@ -123,8 +123,8 @@ module.exports = {
 		                })
 
 
-		            if (config['Response timeout'])
-		                setTimeout(respondStreams, config['Response timeout'])
+		            if (config.respTimeout)
+		                setTimeout(respondStreams, config.respTimeout)
 
 		        } else {
 		            resolve({ streams: [] })
