@@ -6,22 +6,22 @@
   },
   "respTimeout": {
     "title": "Response timeout",
-    "type": "integer",
+    "type": "number",
     "default": 11000
   },
   "perPage": {
     "title": "Results per page",
-    "type": "integer",
+    "type": "number",
     "default": 25
   },
   "openTimeout": {
     "title": "Requests open timeout",
-    "type": "integer",
+    "type": "number",
     "default": 10000
   },
   "readTimeout": {
     "title": "Requests read timeout",
-    "type": "integer",
+    "type": "number",
     "default": 10000
   }
 }
