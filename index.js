@@ -1,3 +1,6 @@
+const modules = require('./modules').get
+const openDirApi = require('./openDirectories.js')
+
 let openDirApi
 
 module.exports = {
@@ -25,14 +28,11 @@ module.exports = {
 
 	},
 	handler: (args, local) => {
-		const modules = local.modules
+		require('./modules').set(local.modules)
 		const config = local.config
 		const proxy = modules.internal.proxy
 		const cinemeta = modules.internal.cinemeta
 		return new Promise((resolve, reject) => {
-
-			if (!openDirApi)
-				openDirApi = require('./openDirectories.js')(modules)
 
 			if (args.resource != 'stream'){
 				reject(new Error('Resource Unsupported'))
