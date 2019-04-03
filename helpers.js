@@ -1,8 +1,4 @@
 
-const proxies = []
-
-const ticker = {}
-
 let modules = {}
 
 const helper = {
