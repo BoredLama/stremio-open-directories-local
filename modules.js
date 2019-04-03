@@ -1,10 +1,10 @@
 
 const modules = {
   set: data => {
-    if (!modules.get)
+    if (!Object.keys(modules.get).length)
       modules.get = data
   },
-  get: false
+  get: {}
 }
 
 module.exports = modules
