@@ -1,5 +1,5 @@
 
-let modules = {}
+const modules = require('./modules').get
 
 const helper = {
 
@@ -134,7 +134,4 @@ const helper = {
 
 }
 
-module.exports = mods => {
-    modules = mods
-    return helper
-}
+module.exports = helper
