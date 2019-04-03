@@ -29,8 +29,8 @@ module.exports = {
 	handler: (args, local) => {
 		const modules = local.modules
 		const config = local.config
-		const proxy = local.modules.internal.proxy
-		const cinemeta = local.modules.internal.cinemeta
+		const proxy = modules.internal.proxy
+		const cinemeta = modules.internal.cinemeta
 		return new Promise((resolve, reject) => {
 
 			if (!helper)
