@@ -1,5 +1,5 @@
 const helper = require('./helpers')
-const modules = require('./modules').get
+const modules = require('./modules')
 
 const supportedFiles = ['mkv', 'mp4', 'avi', 'mov', 'mpg', 'wmv']
 
@@ -7,7 +7,7 @@ const openDirApi = {
 
 	search: (config, query, cb, end) => {
 
-		modules.google.resultsPerPage = config.perPage
+		modules.get.google.resultsPerPage = config.perPage
 
 		let searchQuery = query.name
 
@@ -20,7 +20,7 @@ const openDirApi = {
 
 		const results = []
 
-		modules.google(searchQuery + ' +(' + (config.onlyMP4 ? 'mp4' : supportedFiles.join('|')) + ') -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|wallywashis)', (err, res) => {
+		modules.get.google(searchQuery + ' +(' + (config.onlyMP4 ? 'mp4' : supportedFiles.join('|')) + ') -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|wallywashis)', (err, res) => {
 
 		  if (err) {
 		  	console.log(err.message || err)
@@ -42,14 +42,14 @@ const openDirApi = {
 
 		    	allReqs++
 
-				modules.needle.get(link.href, {
+				modules.get.needle.get(link.href, {
 					open_timeout: config.openTimeout,
 					read_timeout: config.readTimeout,
 					parse_response: false
 				}, (err, resp) => {
 					if (!err && resp && resp.body) {
 
-						const $ = modules.cheerio.load(resp.body)
+						const $ = modules.get.cheerio.load(resp.body)
 
 						let found = false;
 
@@ -116,9 +116,6 @@ const openDirApi = {
 		  }
 
 		})
-
-	},
-        setModules: () => {
 
 	}
 }
