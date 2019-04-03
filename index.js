@@ -1,9 +1,7 @@
 
-const helperMod = require('./helpers.js')
 const apiMod = require('./openDirectories.js')
 
 let openDirApi
-let helper
 
 module.exports = {
 	manifest: { 
@@ -35,9 +33,6 @@ module.exports = {
 		const proxy = modules.internal.proxy
 		const cinemeta = modules.internal.cinemeta
 		return new Promise((resolve, reject) => {
-
-			if (!helper)
-				helper = helperMod(modules)
 
 			if (!openDirApi)
 				openDirApi = apiMod(modules)
