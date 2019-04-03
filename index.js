@@ -1,6 +1,3 @@
-
-const apiMod = require('./openDirectories.js')
-
 let openDirApi
 
 module.exports = {
@@ -35,7 +32,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 
 			if (!openDirApi)
-				openDirApi = apiMod(modules)
+				openDirApi = require(modules.path.join(__dirname, 'openDirectories.js'))(modules)
 
 			if (args.resource != 'stream'){
 				reject(new Error('Resource Unsupported'))
