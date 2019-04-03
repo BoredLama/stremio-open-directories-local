@@ -1,4 +1,7 @@
 
+const helperMod = require('./helpers.js')
+const apiMod = require('./openDirectories.js')
+
 let openDirApi
 let helper
 
@@ -34,10 +37,10 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 
 			if (!helper)
-				helper = require('./helpers.js')(modules)
+				helper = helperMod(modules)
 
 			if (!openDirApi)
-				openDirApi = require('./openDirectories.js')(modules)
+				openDirApi = apiMod(modules)
 
 			if (args.resource != 'stream'){
 				reject(new Error('Resource Unsupported'))
