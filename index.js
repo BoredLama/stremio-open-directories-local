@@ -26,7 +26,7 @@ module.exports = {
 			"catalogs": []
 
 		}
-	}
+	},
 	handler: (args, local) => {
 		const pew = modules.set(local.modules)
 		const config = local.config
