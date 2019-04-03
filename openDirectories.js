@@ -6,7 +6,7 @@ const openDirApi = {
 
 	search: (config, query, cb, end) => {
 
-		google.resultsPerPage = config['Results per page']
+		google.resultsPerPage = config.perPage
 
 		let searchQuery = query.name
 
@@ -19,7 +19,7 @@ const openDirApi = {
 
 		const results = []
 
-		google(searchQuery + ' +(' + (config['Only MP4 results'] ? 'mp4' : supportedFiles.join('|')) + ') -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|wallywashis)', (err, res) => {
+		google(searchQuery + ' +(' + (config.onlyMP4 ? 'mp4' : supportedFiles.join('|')) + ') -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|wallywashis)', (err, res) => {
 
 		  if (err) {
 		  	console.log(err.message || err)
@@ -42,8 +42,8 @@ const openDirApi = {
 		    	allReqs++
 
 				needle.get(link.href, {
-					open_timeout: config['Requests open timeout'],
-					read_timeout: config['Requests read timeout'],
+					open_timeout: config.openTimeout,
+					read_timeout: config.readTimeout,
 					parse_response: false
 				}, (err, resp) => {
 					if (!err && resp && resp.body) {
@@ -67,9 +67,9 @@ const openDirApi = {
 
 							if (helper.isValid(filename, query.name, helper.episodeTag(query.season, query.episode))) {
 
-								if (!config['Only MP4 results'] && supportedFiles.indexOf(extension.toLowerCase()) > -1)
+								if (!config.onlyMP4 && supportedFiles.indexOf(extension.toLowerCase()) > -1)
 									found = true
-								else if (config['Only MP4 results'] && ['mp4'].indexOf(extension.toLowerCase()) > -1)
+								else if (config.onlyMP4 && ['mp4'].indexOf(extension.toLowerCase()) > -1)
 									found = true
 
 								if (found) {
