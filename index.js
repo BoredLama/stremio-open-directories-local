@@ -32,7 +32,7 @@ module.exports = {
 		return new Promise((resolve, reject) => {
 
 			if (!openDirApi)
-				openDirApi = require(modules.path.join(__dirname, 'openDirectories.js'))(modules)
+				openDirApi = require('./openDirectories.js')(modules)
 
 			if (args.resource != 'stream'){
 				reject(new Error('Resource Unsupported'))
@@ -91,8 +91,8 @@ module.exports = {
 		        if (meta) {
 
 		            const searchQuery = {
-		                name: body.meta.name,
-		                year: body.meta.year,
+		                name: meta.name,
+		                year: meta.year,
 		                type: args.type
 		            }
 
