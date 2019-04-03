@@ -26,7 +26,9 @@ module.exports = {
 		"catalogs": []
 
 	},
-	handler: (modules, config, args) => {
+	handler: (args, local) => {
+		const modules = local.modules
+		const config = local.config
 		return new Promise((resolve, reject) => {
 
 			if (!helper)
