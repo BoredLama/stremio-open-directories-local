@@ -1,9 +1,27 @@
 {
-  "optional": {
-		'Only MP4 results': false,
-		'Response timeout': 11000,
-		'Results per page': 25,
-		'Requests open timeout': 10000,
-		'Requests read timeout': 10000
-	}
+  "onlyMP4": {
+    "title": "Only MP4 results",
+    "type": "boolean",
+    "default": false
+  },
+  "respTimeout": {
+    "title": "Response timeout",
+    "type": "integer",
+    "default": 11000
+  },
+  "perPage": {
+    "title": "Results per page",
+    "type": "integer",
+    "default": 25
+  },
+  "openTimeout": {
+    "title": "Requests open timeout",
+    "type": "integer",
+    "default": 10000
+  },
+  "readTimeout": {
+    "title": "Requests read timeout",
+    "type": "integer",
+    "default": 10000
+  }
 }
