@@ -1,35 +1,37 @@
-const modules = require('./modules').get
+const modules = require('./modules')
 const openDirApi = require('./openDirectories.js')
 
 module.exports = {
-	manifest: { 
-		"id": "org.stremio.opendir",
-		"version": "1.0.0",
+	manifest: () => {
+		return {
+			"id": "org.stremio.opendir",
+			"version": "1.0.0",
 
-		"name": "Stremio Open Directories Addon",
-		"description": "Stremio Add-on to get streaming results from Open Directories",
+			"name": "Stremio Open Directories Addon",
+			"description": "Stremio Add-on to get streaming results from Open Directories",
 
-		"icon": "https://logopond.com/logos/3290f64e7448ab9cf04239a070a8cc47.png",
+			"icon": "https://logopond.com/logos/3290f64e7448ab9cf04239a070a8cc47.png",
 
-		// set what type of resources we will return
-		"resources": [
-			"stream"
-		],
+			// set what type of resources we will return
+			"resources": [
+				"stream"
+			],
 
-		// works for both movies and series
-		"types": ["movie", "series"],
+			// works for both movies and series
+			"types": ["movie", "series"],
 
-		// prefix of item IDs (ie: "tt0032138")
-		"idPrefixes": [ "tt" ],
+			// prefix of item IDs (ie: "tt0032138")
+			"idPrefixes": [ "tt" ],
 
-		"catalogs": []
+			"catalogs": []
 
-	},
+		}
+	}
 	handler: (args, local) => {
-		require('./modules').set(local.modules)
+		const pew = modules.set(local.modules)
 		const config = local.config
-		const proxy = modules.internal.proxy
-		const cinemeta = modules.internal.cinemeta
+		const proxy = modules.get.internal.proxy
+		const cinemeta = modules.get.internal.cinemeta
 		return new Promise((resolve, reject) => {
 
 			if (args.resource != 'stream'){
@@ -50,7 +52,7 @@ module.exports = {
 
 				const toStream = (newObj, type) => {
 				    return {
-				        name: modules.url.parse(newObj.href).host,
+				        name: modules.get.url.parse(newObj.href).host,
 				        type: type,
 				        url: newObj.href,
 				        // presume 480p if the filename has no extra tags
