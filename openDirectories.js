@@ -1,8 +1,6 @@
 const helper = require('./helpers')
 const modules = require('./modules').get
 
-let needle, helper, cheerio, google
-
 const supportedFiles = ['mkv', 'mp4', 'avi', 'mov', 'mpg', 'wmv']
 
 const openDirApi = {
