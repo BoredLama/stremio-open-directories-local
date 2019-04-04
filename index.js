@@ -28,7 +28,7 @@ module.exports = {
 		}
 	},
 	handler: (args, local) => {
-		const pew = modules.set(local.modules)
+		modules.set(local.modules)
 		const config = local.config
 		const proxy = modules.get.internal.proxy
 		const cinemeta = modules.get.internal.cinemeta
