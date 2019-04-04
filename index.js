@@ -3,7 +3,7 @@ const openDirApi = require('./openDirectories.js')
 
 module.exports = {
 	manifest: () => {
-		return {
+		return Promise.resolve({
 			"id": "org.stremio.opendir",
 			"version": "1.0.0",
 
@@ -25,7 +25,7 @@ module.exports = {
 
 			"catalogs": []
 
-		}
+		})
 	},
 	handler: (args, local) => {
 		modules.set(local.modules)
