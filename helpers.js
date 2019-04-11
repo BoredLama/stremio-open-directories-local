@@ -1,5 +1,5 @@
 
-const modules = require('./modules')
+const videoNameParser = require('video-name-parser')
 
 const helper = {
 
@@ -26,7 +26,7 @@ const helper = {
             name = decodeURIComponent(name)
         } catch(e) {}
 
-        const parsedName = modules.get['video-name-parser'](name + '.mp4')
+        const parsedName = videoNameParser(name + '.mp4')
 
         let extraTag = helper.simpleName(name)
 
