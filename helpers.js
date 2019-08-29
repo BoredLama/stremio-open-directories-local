@@ -50,9 +50,6 @@ const helper = {
                 parsedName.episode = [queryObj.episode]
         }
 
-        console.log(parsedName)
-        console.log(name)
-
         // remove episode tag
         if (parsedName.season && parsedName.episode && parsedName.episode.length)
             extraTag = extraTag.replace(new RegExp(helper.episodeTag(parsedName.season, parsedName.episode[0]), 'gi'), '')
@@ -115,7 +112,7 @@ const helper = {
 
         let valid = false
 
-        filename = helper.simpleName(filename)
+        filename = decodeURIComponent(helper.simpleName(filename).split('.').join(' '))
         queryName = helper.simpleName(queryName)
 
         if (filename.toLowerCase().includes(queryName.toLowerCase())) {
